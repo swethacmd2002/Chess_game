@@ -1,0 +1,197 @@
+<html>
+<body>
+    <script>
+        let chessBoardSize = 8;
+        createchessboard(chessBoardSize);
+        placeElement(0, 4);
+        placeElement(2, 6);
+        placeElement(4, 2);
+
+        
+        //8*8 grid generation call
+        function createchessboard(size) 
+        {
+            for (var i = 0; i <size; i++) {
+                for (var j = 0; j < size; j++) {
+                    if ((i + j) % 2 == 0 ) {
+	                    createBox(i.toString()+j, 'white')
+                        
+                    } 
+                    else {
+   	                    createBox(i.toString()+j, 'yellow')
+                    }
+                }
+	
+                let br = document.createElement('br')
+                document.body.appendChild(br)
+            }
+        }  
+        //creating grid
+        function createBox(id, color){
+            let div = document.createElement('div');
+	        div.id = id
+	        div.style.backgroundColor = color
+	        div.style.width = '70px'
+	        div.style.height = '70px'
+	        div.style.display = 'inline-block'
+            div.style.verticalAlign='top';
+            div.style.border = '1px solid black'
+            div.setAttribute('onclick',"generatePath('"+div.id+"')")
+            document.body.appendChild(div)	
+        }
+        //placing element in  grid
+        function placeElement(row, column)
+        {
+             var x=(row.toString()+column)
+             document.getElementById(x).innerHTML="QUEEN";
+        }
+      
+        //generating all possible path
+        function generatePath(id)
+        {  
+            if((document.getElementById(id).innerHTML!="")){
+                let row = id.split("")[0]
+                let column = id.split("")[1]
+                row = parseInt(row);
+                column= parseInt(column);
+                checkUpwards(row, column)
+                checkDownwards(row, column);
+                rightSide(row, column);
+                leftSide(row, column);
+                rightUpCross(row, column);
+                lefDownCross(row, column);
+                rightDownCross(row, column);
+                leftUpCross(row, column);
+               
+            }
+        }
+
+        
+        function checkUpwards(row, column){
+            for(i=row;i>0;i--)
+               {
+                var x=((i-1).toString()+column);
+                if(document.getElementById(x).innerHTML!=""){
+                break;
+                }
+                else{
+                    document.getElementById(x).style.backgroundColor="green";  
+                }
+               }
+            
+              }
+              
+        
+        
+        function checkDownwards(row, column){
+            for(i=row;i<7;i++)
+               {
+                var y=((i+1).toString()+column);
+                if(document.getElementById(y).innerHTML!=""){
+                break;
+                }
+                else{
+                    document.getElementById(y).style.backgroundColor="green";  
+                }
+               
+              }
+           
+        }
+
+        
+        function rightSide(row, column){
+
+            for(j=column;j<7;j++)
+               {
+                var y=(row.toString()+(j+1));
+                if(document.getElementById(y).innerHTML!=""){
+                break;
+                }
+                else{
+                    document.getElementById(y).style.backgroundColor="green";  
+                }
+              }
+           
+        }
+        function leftSide(row, column){
+
+            for(j=column;j>0;j--)
+               {
+                  var y=(row.toString()+(j-1));
+                  if(document.getElementById(y).innerHTML!=""){
+                break;
+                }
+                else{
+                    document.getElementById(y).style.backgroundColor="green";  
+                }
+                }
+
+              }
+        function rightUpCross(row, column)
+          {
+              for(i=row, j=column;i>0 && j<7;i--, j++){
+                 
+                    var y=((i-1).toString()+(j+1));
+                   
+                    if(document.getElementById(y).innerHTML!=""){
+                      break;
+                      }
+                         else{
+                      document.getElementById(y).style.backgroundColor="green";  
+                }
+                  
+              }
+          }
+          function lefDownCross(row, column)
+          {
+              for(i=row, j=column;i<7 && j>0;i++, j--)
+                  {
+                     var y=((i+1).toString()+(j-1));
+                     if(document.getElementById(y).innerHTML!=""){
+                       break;
+                      }
+                     else{
+                       document.getElementById(y).style.backgroundColor="green";  
+                     }
+                  
+              }
+          }
+        
+          function rightDownCross(row, column)
+          {
+              for(i=row, j=column;i<7 && j<7;i++,j++){
+                 
+                    var y=((i+1).toString()+(j+1));
+                    
+                    if(document.getElementById(y).innerHTML!=""){
+                      break;
+                      }
+                     else{
+                       document.getElementById(y).style.backgroundColor="green";  
+                }
+                  
+              }
+          }
+          function leftUpCross(row, column)
+          {
+            for(i=row, j=column;i>0 && j>0;i--,j--){
+                 
+                 
+                 var y=((i-1).toString()+(j-1));
+               
+                 
+                 if(document.getElementById(y).innerHTML!=""){
+                   break;
+                    }
+                 else{
+                    document.getElementById(y).style.backgroundColor="green";  
+                }
+           }
+          }
+         
+
+        
+        
+     </script>
+</body>
+</html>
